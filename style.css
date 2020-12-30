@@ -14,8 +14,10 @@
 :root {
     --color1: purple;
     --color2: rebeccapurple;
-    --color3: rgb(42, 21, 63);
-    --color4: rgb(27, 4, 49);
+    /* --color3: rgb(42, 21, 63); original */
+    --color3: rgb(23, 8, 51);
+    /* --color4: rgb(27, 4, 49); original */
+    --color4: rgb(12, 5, 32);
     --brand1: rgb(241, 52, 52);
 }
 
@@ -32,11 +34,59 @@ a {
 }
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--color4);
 }
 
 .off-display {
     display: none;
 }
+
+
+/*
+    SCROLLBAR
+*/
+html {
+    --scrollbarBG: rgb(83, 42, 83);
+    --thumbBG: rebeccapurple;
+  }
+
+  body::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  }
+
+  body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 20px;
+    border: 3px solid var(--scrollbarBG);
+  }
+
+  /* --------------- */
+  .cardDisplay::-webkit-scrollbar {
+    height: 12px;
+    width: 0;
+  }
+
+  .cardDisplay::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+
+  .cardDisplay::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 20px;
+    border: 3px solid var(--scrollbarBG);
+  }
+
+
 
 /*
     App-header Styles
@@ -156,16 +206,17 @@ body {
     margin: 1rem;
     margin-right: 0rem;
     min-width: 300px;
-    max-height: 300px;
+    max-height: 310px;
     border-radius: 10px;
     background-color: var(--color3);
 }
 
 .movieCard img {
     width: 100%;
-    height: 200px;
+    height: 230px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    object-fit: fill;
 }
 
 .movieCard .title {
@@ -173,7 +224,7 @@ body {
 }
 .movieCard .title h4 {
     flex: 1;
-    margin-left: 0.5rem;
+    margin-left: 1rem;
     color: #ddd;
 }
 .movieCard .title span {
