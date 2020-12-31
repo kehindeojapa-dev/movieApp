@@ -42,12 +42,13 @@ body {
 }
 
 
+
 /*
     SCROLLBAR
 */
 html {
-    --scrollbarBG: rgb(83, 42, 83);
-    --thumbBG: rebeccapurple;
+    --scrollbarBG: rgb(23, 8, 51);
+    --thumbBG:rgb(241, 52, 52);
   }
 
   body::-webkit-scrollbar {
@@ -58,6 +59,7 @@ html {
   body {
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    /* display: none; */
   }
 
   body::-webkit-scrollbar-track {
@@ -179,6 +181,7 @@ html {
 .categoryIntro {
     display: flex;
     padding-top: 1.5rem;
+    margin-top: 2.5rem;
 }
 .categoryIntro h3 {
     color: white;
@@ -206,9 +209,11 @@ html {
     margin: 1rem;
     margin-right: 0rem;
     min-width: 300px;
-    max-height: 310px;
+    max-height: 320px;
     border-radius: 10px;
-    background-color: var(--color3);
+    /* background-color: var(--color3); */
+    background-color: rgb(224, 212, 212);
+    box-shadow: 0px 2px 3px var(--brand1);
 }
 
 .movieCard img {
@@ -225,7 +230,7 @@ html {
 .movieCard .title h4 {
     flex: 1;
     margin-left: 1rem;
-    color: #ddd;
+    color: var(--color3);
 }
 .movieCard .title span {
     margin-right: 0.5rem;
@@ -244,27 +249,30 @@ html {
     margin: 0.8rem 0.5rem;
     border: none;
     padding: 0.3rem 0.4rem;
-    border-radius: 4px;
-    box-shadow: 0px 5px 5px rgb(0,0,0,0.5);
+    border-radius: 8px;
     color: rgb(207, 199, 200);
     font-weight: 550;
     cursor: pointer;
+    color: var(--color3);
 }
 
 .movieCard .button-Container .info_btn {
     background-color: rgb(185, 135, 42);
+    box-shadow: 2px 5px 5px rgba(95, 66, 11, 0.6);
 }
 .movieCard .button-Container .info_btn:hover {
     background-color: rgb(138, 101, 32);
 }
 .movieCard .button-Container .trailer_btn {
-    background-color: rgb(90, 138, 42);
+    background-color: rgb(90, 141, 40);
+    box-shadow: 2px 5px 5px rgb(66,102,30,0.5);
 }
 .movieCard .button-Container .trailer_btn:hover {
     background-color: rgb(56, 87, 26);
 }
 .movieCard .button-Container .stream_btn {
     background-color: var(--brand1);
+    box-shadow: 2px 5px 5px rgb(0,0,0,0.5);
     color: white;
 }
 .movieCard .button-Container .stream_btn:hover {
@@ -288,9 +296,9 @@ html {
     margin-top: 2rem;
     background-color: whitesmoke;
     border-radius: 10px;
-    outline: 1px solid green;
+    /* outline: 1px solid green; */
     max-height: 600px;
-    
+    box-shadow: 0px 50px 100px rgba(255, 0, 0, 0.471);
 }
 #popup-Container .movieCard {
     background-color: whitesmoke;
@@ -316,6 +324,10 @@ html {
     border-radius: 3px;
     position: relative;
     left: 2rem;
+}
+
+#popup-Container .movieCard {
+    box-shadow: none;
 }
 
 #popup-Container .movieCard .overview p{
