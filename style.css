@@ -33,12 +33,16 @@ a {
     color: #fff;
 }
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Poppins, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--color4);
 }
 
 .off-display {
     display: none;
+}
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 
@@ -139,10 +143,12 @@ html {
 
 #app-header #search-container form input:focus {
     outline: none;
+    background: var(--color4);
+    border: 1px solid var(--brand1) ;
 }
 
 #app-header #search-container form button {
-    background-color: var(--color2);
+    background-color: transparent;
     border: none;
     color: white;
     font-size: 1.2rem;
@@ -157,6 +163,16 @@ html {
     font-size: 1.3rem;
 }
 
+.searchInfo {
+    color: white;
+    font-size: 1rem;
+    margin-left: 2rem;
+}
+.searchInfo span {
+    color: var(--brand1);
+    font-size: 1.2rem;
+}
+
 
 
 /* 
@@ -165,6 +181,7 @@ html {
 
 #movies-Container {
     background-color: var(--color4);
+    /* margin-top: -3rem; */
 }
 
 
@@ -181,7 +198,7 @@ html {
 .categoryIntro {
     display: flex;
     padding-top: 1.5rem;
-    margin-top: 2.5rem;
+    margin-top: 6.5rem;
 }
 .categoryIntro h3 {
     color: white;
@@ -195,6 +212,17 @@ html {
     color: var(--brand1);
 }
 
+.categoryTitle {
+    color: var(--brand1);
+    text-align: center;
+    margin: 0.3rem 0rem;
+    letter-spacing: 0.3rem;
+    display: block !important;
+}
+
+#latestMovies {
+    margin-top: -6.5rem;
+}
 
 /* 
     STYLES FOR MOVIECARD
@@ -208,11 +236,12 @@ html {
     /* outline: 1px solid brown; */
     margin: 1rem;
     margin-right: 0rem;
-    min-width: 300px;
-    max-height: 320px;
+    width: 15rem;
+    max-height: auto;
     border-radius: 10px;
     /* background-color: var(--color3); */
-    background-color: rgb(224, 212, 212);
+    /* background-color: var(--color3); */
+    background-color: rgb(29, 5, 73);
     box-shadow: 0px 2px 3px var(--brand1);
 }
 
@@ -225,12 +254,13 @@ html {
 }
 
 .movieCard .title {
-    display: flex
+    display: flex;
+    align-items: center;
 }
 .movieCard .title h4 {
     flex: 1;
     margin-left: 1rem;
-    color: var(--color3);
+    color: white;
 }
 .movieCard .title span {
     margin-right: 0.5rem;
@@ -238,6 +268,7 @@ html {
     color: white;
     padding: 0.15rem 0.3rem;
     border-radius: 3px;
+    text-align: center;
 }
 
 .movieCard .button-Container {
@@ -297,7 +328,8 @@ html {
     background-color: whitesmoke;
     border-radius: 10px;
     /* outline: 1px solid green; */
-    max-height: 600px;
+    max-height: auto;
+    overflow: auto;
     box-shadow: 0px 50px 100px rgba(255, 0, 0, 0.471);
 }
 #popup-Container .movieCard {
@@ -309,7 +341,7 @@ html {
 }
 #popup-Container .movieInfo img{
     width: 40%;
-    height: 150px;
+    height: 180px;
     border-radius: 0;
 }
 #popup-Container .movieInfo h4{
@@ -328,6 +360,9 @@ html {
 
 #popup-Container .movieCard {
     box-shadow: none;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 #popup-Container .movieCard .overview p{
@@ -370,7 +405,7 @@ html {
 /*
     CLOSE_BTN
 */
-#close_btn {
+.close_btn {
     position: absolute;
     top: 5px;
     right: 10px;
@@ -381,7 +416,7 @@ html {
     border: none;
     transition: all ease-in 0.1s;
 }
-#close_btn:hover {
+.close_btn:hover {
     font-size: 1.7rem;
 }
 

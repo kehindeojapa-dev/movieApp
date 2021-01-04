@@ -2,16 +2,25 @@
  * DOM Variables
  */
 
-const main = document.querySelector('#movies-Container')
-// const infoBtn = document.querySelectorAll('.info_btn');
-// console.log(infoBtn);
+const main = document.querySelector('#movies-Container');
+const textHolder = document.querySelector('.textHolder');
+const seeAllLatest = document.querySelector('#latestMovies .categoryIntro a');
+const seeAllAction = document.querySelector('#actionMovies .categoryIntro a');
+const seeAllRomance = document.querySelector('#romanceMovies .categoryIntro a');
+const seeAllComedy = document.querySelector('#comedyMovies .categoryIntro a');
+const seeAllHorror = document.querySelector('#horrorMovies .categoryIntro a');
+const seeAllSciFi = document.querySelector('#scifiMovies .categoryIntro a');
+const seeAllAnimation = document.querySelector('#animationMovies .categoryIntro a');
+
+const searchForm = document.querySelector('#search-container form');
+const searchInput = document.querySelector('#search');
 
 /**
  * Fetch movies api according to category, searches
  * 
  */
 
-// most popular/latest movies url
+// most popular/latest movies url/searchURL
 const mostPopularMovieURL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1";
 // action movies url
 const actionMoviesURL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1&with_genres=28";
@@ -26,16 +35,19 @@ const scifiMoviesURL = "https://api.themoviedb.org/3/discover/movie?sort_by=popu
 // animation movies url
 const animationMoviesURL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1&with_genres=16";
 
+// search movies URL
+const searchURL = "https://api.themoviedb.org/3/search/movie?&api_key=f441110fce33369a3556c8129b731986&query="
+
+// for getting absolute path for images gotten from the tmdb api
 const IMGPATH = "http://image.tmdb.org/t/p/w1280";
 
-
+ 
 function displayMovies(respData, cardDisplay) {
     return respData.results.forEach(movie => {
         const {poster_path, title, vote_average, overview, id} = movie;
 
         async function getMovieDetail(id){
             const cast = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=f441110fce33369a3556c8129b731986`);
-            // const cast = await fetch("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1&with_genres=16");
             const castData = await cast.json();
             const castCrew = (castData.cast);
             
@@ -56,7 +68,7 @@ function displayMovies(respData, cardDisplay) {
                 <button class="stream_btn"><a href="https://azm.to/search/${title}" target="_blank">Stream</a></button>
             </div>
             <section id="popup-Container" class="off-display">
-                <button id="close_btn">X</button>
+                <button class="close_btn">X</button>
                 <div class="movieCard">
                     <div class="movieInfo">
                         <img src="${IMGPATH + poster_path}" alt="${title}">
@@ -100,77 +112,84 @@ function displayMovies(respData, cardDisplay) {
         });
 }
 
+
+/**
+ * CATEGORY FUNCTIONS
+ * Functions below get data for each movie category
+ */
 //display latest movies
-async function getMostPopularMovies () {
+async function getMostPopularMovies (position) {
     const resp = await fetch(mostPopularMovieURL);
     const respData = await resp.json();
     // console.log(respData);
-    const cardDisplay = document.querySelector('#latestMovies .cardDisplay');
+    const cardDisplay = document.querySelector(position);
     displayMovies(respData, cardDisplay);
 };
 
 //display action movies
-async function getActionMovies(){
+async function getActionMovies(position){
     const resp = await fetch(actionMoviesURL);
     const respData = await resp.json();
 
-    const cardDisplay =  document.querySelector('#actionMovies .cardDisplay');
+    const cardDisplay =  document.querySelector(position);
     displayMovies(respData, cardDisplay);
 }
 
 //display romance movies
-async function getRomanceMovies(){
+async function getRomanceMovies(position){
     const resp = await fetch(romanceMoviesURL);
     const respData = await resp.json();
 
-    const cardDisplay =  document.querySelector('#romanceMovies .cardDisplay');
+    const cardDisplay =  document.querySelector(position);
     displayMovies(respData, cardDisplay);
 }
 
 //display comedy movies
-async function getComedyMovies(){
+async function getComedyMovies(position){
     const resp = await fetch(comedyMoviesURL);
     const respData = await resp.json();
 
-    const cardDisplay =  document.querySelector('#comedyMovies .cardDisplay');
+    const cardDisplay =  document.querySelector(position);
     displayMovies(respData, cardDisplay);
 }
 
 //display horror movies
-async function getHorrorMovies(){
+async function getHorrorMovies(position){
     const resp = await fetch(horrorMoviesURL);
     const respData = await resp.json();
 
-    const cardDisplay =  document.querySelector('#horrorMovies .cardDisplay');
+    const cardDisplay =  document.querySelector(position);
     displayMovies(respData, cardDisplay);
 }
 
 //display sci-fi movies
-async function getSciFiMovies(){
+async function getSciFiMovies(position){
     const resp = await fetch(scifiMoviesURL);
     const respData = await resp.json();
 
-    const cardDisplay =  document.querySelector('#scifiMovies .cardDisplay');
+    const cardDisplay =  document.querySelector(position);
     displayMovies(respData, cardDisplay);
 }
 
 //display animation movies
-async function getAnimationMovies () {
+async function getAnimationMovies (position) {
     const resp = await fetch(animationMoviesURL);
     const respData = await resp.json();
-    console.log(respData);
-    const cardDisplay = document.querySelector('#animationMovies .cardDisplay');
+
+    const cardDisplay = document.querySelector(position);
     displayMovies(respData, cardDisplay);
 };
 
 
-getMostPopularMovies();
-getActionMovies();
-getRomanceMovies();
-getComedyMovies();
-getHorrorMovies();
-getSciFiMovies();
-getAnimationMovies();
+
+//Generate Initial Page Content
+getMostPopularMovies('#latestMovies .cardDisplay');
+getActionMovies('#actionMovies .cardDisplay');
+getRomanceMovies('#romanceMovies .cardDisplay');
+getComedyMovies('#comedyMovies .cardDisplay');
+getHorrorMovies('#horrorMovies .cardDisplay');
+getSciFiMovies('#scifiMovies .cardDisplay');
+getAnimationMovies('#animationMovies .cardDisplay');
 
 
 /**
@@ -183,22 +202,118 @@ function arrayedClassLIst(e) {
     let item = e.target;
     arrayedItem = Array.from(item.classList);
 }
-// setInterval(() => {
-//     const infoBtn = document.querySelectorAll('.info_btn')
-// }, interval);
-// infoBtn.forEach(button => {
-//     button.addEventListener('click', showInfo);
-//     function showInfo(){
-//         alert('button clicked');
-//     }
-// })
+
 main.addEventListener('click', showInfo)
 function showInfo(e) {
     arrayedClassLIst(e)
     if(arrayedItem.includes('info_btn')){
         // alert('clicked');
-        let item =e.target
-        infoCard = item.parentElement.nextSibling.nextSibling;
+        let item = e.target
+        let infoCard = item.parentElement.nextSibling.nextSibling;
         infoCard.classList.remove('off-display');
     }
+    if(arrayedItem.includes('close_btn')){
+        let item = e.target
+        let infoCard = item.parentElement;
+        infoCard.classList.add('off-display')
+    }
 }
+
+
+
+/**
+ * SEE ALL FUNCTIONS
+ * Functionality for SEE ALL LINKS 
+ */
+
+// Template function for generating a category content
+// function seeAll( category, getMovies) {
+//     main.innerHTML = `
+//         <h3 class="categoryTitle">${category}</h3>
+//     `
+//     getMovies;
+// }
+
+async function seeAll(category, categoryURL) {
+    textHolder.innerHTML = `
+        <h3 class="categoryTitle">${category}</h3>
+    `;
+    main.innerHTML = ''
+    
+    const resp = await fetch(categoryURL);
+    const respData = await resp.json();
+
+    displayMovies(respData, main);
+    main.classList.add('wrap');
+}
+
+//Latest Movie See All function
+seeAllLatest.addEventListener('click', e => {
+    e.preventDefault();
+    seeAll('Latest', mostPopularMovieURL);
+});
+
+//Action Movie See All function
+seeAllAction.addEventListener('click', e => {
+    e.preventDefault();
+    seeAll('Action', actionMoviesURL);
+});
+
+//Romance Movie See All function
+seeAllRomance.addEventListener('click', e => {
+    e.preventDefault();
+    seeAll('Romance', romanceMoviesURL);
+});
+
+//Comedy Movie See All function
+seeAllComedy.addEventListener('click', e => {
+    e.preventDefault();
+    seeAll('Comedy', comedyMoviesURL);
+});
+
+//Horror Movie See All function
+seeAllHorror.addEventListener('click', e => {
+    e.preventDefault();
+    seeAll('Horror', horrorMoviesURL);
+});
+
+//Sci-Fi Movie See All function
+seeAllSciFi.addEventListener('click', e => {
+    e.preventDefault();
+    seeAll('Sci-Fi', scifiMoviesURL);
+});
+
+//Animation Movie See All function
+seeAllAnimation.addEventListener('click', e => {
+    e.preventDefault();
+    seeAll('Animation', animationMoviesURL);
+});
+
+
+
+/**
+ * SEARCH FUNCTIONS
+ */
+
+searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+    searchResult();
+})
+
+async function searchResult() {
+    const searchTerm = searchInput.value;
+    if(searchTerm) {
+        textHolder.innerHTML = `
+            <h3 class="searchInfo">search results for: <span>${searchTerm}<span><h3>
+        `;
+        main.innerHTML = ''
+        const search = await fetch(searchURL + searchTerm);
+        const searchData = await search.json();
+        displayMovies(searchData, main);
+        main.classList.add('wrap');
+        searchTerm = ''
+    }
+}
+
+
+
