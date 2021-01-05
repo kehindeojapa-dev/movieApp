@@ -42,8 +42,13 @@ const searchURL = "https://api.themoviedb.org/3/search/movie?&api_key=f441110fce
 const IMGPATH = "http://image.tmdb.org/t/p/w1280";
 
  
-function displayMovies(respData, cardDisplay) {
-    return respData.results.forEach(movie => {
+
+/** DISPLAY MOVIES
+ * Function generates movies and decide where to put it
+ * and no of movies to generate at a time.
+ */
+function displayMovies(respData, cardDisplay, noOfMovies) {
+    return respData.results.slice(0, noOfMovies).forEach(movie => {
         const {poster_path, title, vote_average, overview, id} = movie;
 
         async function getMovieDetail(id){
@@ -56,7 +61,7 @@ function displayMovies(respData, cardDisplay) {
             movieCard.classList.add('movieCard')
             movieCard.innerHTML = `
             <div>
-                <img src="${IMGPATH + poster_path}" alt="testing">
+                <img src="${IMGPATH + poster_path}" alt="${title}" loading="lazy">
             </div>
             <div class="title">
                 <h4>${title}</h4>
@@ -79,22 +84,22 @@ function displayMovies(respData, cardDisplay) {
                     </div>
                     <div class="actors-Container">
                         <div>
-                            <img src="${IMGPATH + castCrew[0].profile_path}" alt="test">
+                            <img src="${IMGPATH + castCrew[0].profile_path}" alt="${castCrew[0].name}">
                             <h3>${castCrew[0].name}</h3>
                             <p><span>as </span>${castCrew[0].character}</p>
                         </div>
                         <div>
-                            <img src="${IMGPATH + castCrew[1].profile_path}" alt="test">
+                            <img src="${IMGPATH + castCrew[1].profile_path}" alt="${castCrew[0].name}">
                             <h3>${castCrew[1].name}</h3>
                             <p><span>as </span>${castCrew[1].character}</p>
                         </div>
                         <div>
-                            <img src="${IMGPATH + castCrew[2].profile_path}" alt="test">
+                            <img src="${IMGPATH + castCrew[2].profile_path}" alt="${castCrew[0].name}">
                             <h3>${castCrew[2].name}</h3>
                             <p><span>as </span>${castCrew[2].character}</p>
                         </div>
                         <div>
-                            <img src="${IMGPATH + castCrew[3].profile_path}" alt="test">
+                            <img src="${IMGPATH + castCrew[3].profile_path}" alt="${castCrew[0].name}">
                             <h3>${castCrew[3].name}</h3>
                             <p><span>as </span>${castCrew[3].character}</p>
                         </div>
@@ -123,7 +128,7 @@ async function getMostPopularMovies (position) {
     const respData = await resp.json();
     // console.log(respData);
     const cardDisplay = document.querySelector(position);
-    displayMovies(respData, cardDisplay);
+    displayMovies(respData, cardDisplay, 10);
 };
 
 //display action movies
@@ -132,7 +137,7 @@ async function getActionMovies(position){
     const respData = await resp.json();
 
     const cardDisplay =  document.querySelector(position);
-    displayMovies(respData, cardDisplay);
+    displayMovies(respData, cardDisplay, 10);
 }
 
 //display romance movies
@@ -141,7 +146,7 @@ async function getRomanceMovies(position){
     const respData = await resp.json();
 
     const cardDisplay =  document.querySelector(position);
-    displayMovies(respData, cardDisplay);
+    displayMovies(respData, cardDisplay, 10);
 }
 
 //display comedy movies
@@ -150,7 +155,7 @@ async function getComedyMovies(position){
     const respData = await resp.json();
 
     const cardDisplay =  document.querySelector(position);
-    displayMovies(respData, cardDisplay);
+    displayMovies(respData, cardDisplay, 10);
 }
 
 //display horror movies
@@ -159,7 +164,7 @@ async function getHorrorMovies(position){
     const respData = await resp.json();
 
     const cardDisplay =  document.querySelector(position);
-    displayMovies(respData, cardDisplay);
+    displayMovies(respData, cardDisplay, 10);
 }
 
 //display sci-fi movies
@@ -168,7 +173,7 @@ async function getSciFiMovies(position){
     const respData = await resp.json();
 
     const cardDisplay =  document.querySelector(position);
-    displayMovies(respData, cardDisplay);
+    displayMovies(respData, cardDisplay, 10);
 }
 
 //display animation movies
@@ -177,7 +182,7 @@ async function getAnimationMovies (position) {
     const respData = await resp.json();
 
     const cardDisplay = document.querySelector(position);
-    displayMovies(respData, cardDisplay);
+    displayMovies(respData, cardDisplay, 20);
 };
 
 
@@ -227,13 +232,6 @@ function showInfo(e) {
  */
 
 // Template function for generating a category content
-// function seeAll( category, getMovies) {
-//     main.innerHTML = `
-//         <h3 class="categoryTitle">${category}</h3>
-//     `
-//     getMovies;
-// }
-
 async function seeAll(category, categoryURL) {
     textHolder.innerHTML = `
         <h3 class="categoryTitle">${category}</h3>
@@ -243,7 +241,7 @@ async function seeAll(category, categoryURL) {
     const resp = await fetch(categoryURL);
     const respData = await resp.json();
 
-    displayMovies(respData, main);
+    displayMovies(respData, main, 20);
     main.classList.add('wrap');
 }
 
@@ -303,13 +301,14 @@ searchForm.addEventListener('submit', e => {
 async function searchResult() {
     const searchTerm = searchInput.value;
     if(searchTerm) {
+        main.innerHTML = '';
         textHolder.innerHTML = `
             <h3 class="searchInfo">search results for: <span>${searchTerm}<span><h3>
         `;
-        main.innerHTML = ''
+        main.innerHTML = '';
         const search = await fetch(searchURL + searchTerm);
         const searchData = await search.json();
-        displayMovies(searchData, main);
+        displayMovies(searchData, main, 20);
         main.classList.add('wrap');
         searchTerm = ''
     }
