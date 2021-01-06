@@ -1,5 +1,12 @@
 /**
- * DOM Variables
+ * MOVIE APP
+ * Author: Kehinde Ojapa
+ * 
+ */
+
+
+/**
+ * DOM Variables(STATE)
  */
 
 const main = document.querySelector('#movies-Container');
@@ -208,6 +215,7 @@ function arrayedClassLIst(e) {
     arrayedItem = Array.from(item.classList);
 }
 
+//function for displaying and closing movie_info container card
 main.addEventListener('click', showInfo)
 function showInfo(e) {
     arrayedClassLIst(e)
@@ -291,6 +299,8 @@ seeAllAnimation.addEventListener('click', e => {
 
 /**
  * SEARCH FUNCTIONS
+ * Takes a search value and send it to the tmdp api
+ * Its result(atmost 20) is displayed in the main container
  */
 
 searchForm.addEventListener('submit', e => {
