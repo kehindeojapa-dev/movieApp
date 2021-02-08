@@ -2,7 +2,7 @@
 **This is a web application that show directories of movies making use of movies data, provided by TMDB.**
 - Author: Kehinde Ojapa
 - Github: https://github.com/kehindeojapa-dev
-- Demo Link: 
+- Demo Link: https://kehindeojapa-dev.github.io/movieApp
 - API used: TMDB
 
 
